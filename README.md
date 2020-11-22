@@ -1,14 +1,55 @@
-# Welcome to your CDK TypeScript project!
+# 概要
 
-This is a blank project for TypeScript development with CDK.
+AWS CDK で API Gateway + Lambda で Slack Bolt をデプロイするシンプルなプロジェクトです。
 
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
+[Bolt](https://slack.dev/bolt-js/ja-jp/tutorial/getting-started) の入門ガイドで作成したアプリを AWS CDK でデプロイすることができます。
 
-## Useful commands
+## コマンド
 
- * `npm run build`   compile typescript to js
- * `npm run watch`   watch for changes and compile
- * `npm run test`    perform the jest unit tests
- * `cdk deploy`      deploy this stack to your default AWS account/region
- * `cdk diff`        compare deployed stack with current state
- * `cdk synth`       emits the synthesized CloudFormation template
+- `npm run build` TypeScriptをコンパイル
+- `npm run watch` 変更をウォッチしてコンパイル
+- `npm run test` ユニットテストを実行
+- `npm run bootstrap` AWS CDKのbootstrapを実行
+- `npm run deploy` デプロイ
+- `npm run dev` ローカルでサーバーを起動
+
+## デプロイ手順
+
+### AWS CDKをインストール
+
+```
+npm install -g aws-cdk
+```
+
+### Build
+
+```
+npm run build
+```
+
+### Bootstrapping an environment
+
+デプロイ対象のアカウント/リージョンに初めてデプロイする際は、"bootstrap stack"をインストールする必要があります。（初回のみ）
+```
+npm run bootstrap
+```
+
+### Deploy
+
+```
+export SLACK_SIGNING_SECRET=<your-signing-secret>
+export SLACK_BOT_TOKEN=xoxb-<your-bot-token>
+# 必要に応じてデプロイ対象のAWSアカウントを設定
+export AWS_ACCESS_KEY_ID=XXXXX
+export AWS_SECRET_ACCESS_KEY=YYYYY
+npm run deploy
+```
+
+## ローカル起動
+
+ngrokでフォワードされるURLをSlackアプリに設定する。
+
+```
+npm run dev
+ngrok http 3000
+```
